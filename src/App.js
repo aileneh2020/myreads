@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 // import * as BooksAPI from './BooksAPI'
+import MainPage from './components/pages/MainPage'
+import SearchPage from './components/pages/SearchPage'
 import './App.css'
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -14,6 +17,14 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    return(
+      <div>
+        <Route exact path='/' component={ MainPage } />
+        <Route exact path='/search' component={ SearchPage } />
+      </div>
+    )
+
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (

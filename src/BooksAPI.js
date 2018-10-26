@@ -12,16 +12,19 @@ const headers = {
   'Authorization': token
 }
 
+// return info about a single book
 export const get = (bookId) =>
   fetch(`${api}/books/${bookId}`, { headers })
     .then(res => res.json())
     .then(data => data.book)
 
+// return all books on all bookshelves
 export const getAll = () =>
   fetch(`${api}/books`, { headers })
     .then(res => res.json())
     .then(data => data.books)
 
+// update a single book to new shelf, returns some info res.json
 export const update = (book, shelf) =>
   fetch(`${api}/books/${book.id}`, {
     method: 'PUT',
@@ -32,6 +35,7 @@ export const update = (book, shelf) =>
     body: JSON.stringify({ shelf })
   }).then(res => res.json())
 
+// search for book using query param, post, return books
 export const search = (query) =>
   fetch(`${api}/search`, {
     method: 'POST',
