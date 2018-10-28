@@ -1,13 +1,43 @@
 import React, { Component } from 'react'
+import ChangeShelf from './ChangeShelf'
+import * as BooksAPI from '../BooksAPI'
 
 class Book extends Component {
+
+	//changeShelf is still a work in progress
+	changeShelf = (book, shelf) => {
+  	BooksAPI.update(book, shelf).then(response => {
+  		//update state of book - get copy of list of books
+  		//look for this book in list to see if it's there yet
+  			//if book in list then update the shelf location
+  			//otherwise push book to shelf
+  		//update state with new list of books
+
+  		book.shelf = shelf;
+  		this.setState(state => ({
+  			books: state.books.filter(b => b.id !== book.id.concat({book}))
+  		}))
+  	})
+  }
+
 	render() {
+
+		let bookImageURL = (this.props.book.imageLinks && `url(${this.props.book.imageLinks.thumbnail})`);
+		const authors = (this.props.book.authors && this.props.book.authors.join(' & '));
+
 		return (
 			<div className="book">
 				<div className="book-top">
-					<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>
+					<div
+						className="book-cover"
+						style={{
+							width: 128,
+							height: 193,
+							backgroundImage: bookImageURL
+						}}>
+					</div>
 					<div className="book-shelf-changer">
-						<select>
+						<select value={this.props.book.shelf || "none"}>
 							<option value="move" disabled>Move to...</option>
 							<option value="currentlyReading">Currently Reading</option>
 							<option value="wantToRead">Want to Read</option>
@@ -16,8 +46,8 @@ class Book extends Component {
 						</select>
 					</div>
 				</div>
-				<div className="book-title">To Kill a Mockingbird</div>
-				<div className="book-authors">Harper Lee</div>
+				<div className="book-title">{this.props.book.title}</div>
+				<div className="book-authors">{authors}</div>
 			</div>
 		)
 	}
