@@ -18,6 +18,15 @@ class MainPage extends Component {
 		})
 	}
 
+	changeShelf = (book, shelf) => {
+		BooksAPI.update(book, shelf).then(response => {
+			book.shelf = shelf;
+			this.setState(state => ({
+				books: state.books.filter(b => b.id !== book.id.concat({book}))
+			}))
+		})
+	}
+
 	render() {
 		return (
 			<div className="list-books">
@@ -28,15 +37,18 @@ class MainPage extends Component {
 					<div>
 						<BookShelf
 							name="Currently Reading"
-							books={this.state.books.filter(book => book.shelf === "currentlyReading")}
+							changeShelf={this.changeShelf}
+							books={this.state.books.filter(b => b.shelf === "currentlyReading")}
 						/>
 						<BookShelf
 							name="Want to Read"
-							books={this.state.books.filter(book => book.shelf === "wantToRead")}
+							changeShelf={this.changeShelf}
+							books={this.state.books.filter(b => b.shelf === "wantToRead")}
 						/>
 						<BookShelf
 							name="Read"
-							books={this.state.books.filter(book => book.shelf === "read")}
+							changeShelf={this.changeShelf}
+							books={this.state.books.filter(b => b.shelf === "read")}
 						/>
 					</div>
 				</div>
@@ -49,3 +61,10 @@ class MainPage extends Component {
 }
 
 export default MainPage
+
+//for changeShelf function
+//update state of book - get copy of list of books
+//look for this book in list to see if it's there yet
+	//if book in list then update the shelf location
+	//otherwise push book to shelf
+//update state with new list of books
