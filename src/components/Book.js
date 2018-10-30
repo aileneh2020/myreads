@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import ChangeShelf from './ChangeShelf'
-import * as BooksAPI from '../BooksAPI'
+//import ChangeShelf from './ChangeShelf'
+//import * as BooksAPI from '../BooksAPI'
 
 class Book extends Component {
 	render() {
