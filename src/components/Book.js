@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
-//import ChangeShelf from './ChangeShelf'
-//import * as BooksAPI from '../BooksAPI'
 
 class Book extends Component {
 	render() {
-
-		let bookImageURL = (this.props.book.imageLinks && `url(${this.props.book.imageLinks.thumbnail})`);
-		const authors = (this.props.book.authors && this.props.book.authors.join(' & '));
+		let bookImageURL = (this.props.book.imageLinks &&
+			`url(${this.props.book.imageLinks.thumbnail})`);
+		const authors = (this.props.book.authors &&
+			this.props.book.authors.join(' & '));
 
 		return (
 			<div className="book">
 				<div className="book-top">
 					<div
-					className="book-cover"
-					style={{ width: 128, height: 193, backgroundImage: bookImageURL }}>
+						className="book-cover"
+						style={{ width: 128, height: 193, backgroundImage: bookImageURL }}>
 					</div>
 					<div className="book-shelf-changer">
 						<select
-						value={this.props.book.shelf || "none"}
-						onChange={(event) => { this.props.changeShelf(this.props.book, event.target.value) }}>
+							value={this.props.book.shelf || "none"}
+							onChange={(event) => { this.props.changeShelf(this.props.book, event.target.value) }}>
 							<option value="move" disabled>Move to...</option>
 							<option value="currentlyReading">Currently Reading</option>
 							<option value="wantToRead">Want to Read</option>

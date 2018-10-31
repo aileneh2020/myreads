@@ -6,8 +6,6 @@ import './index.css'
 
 
 ReactDOM.render(
-	<BrowserRouter>
-		<BooksApp />
-	</BrowserRouter>,
+	<BrowserRouter><BooksApp /></BrowserRouter>,
 	document.getElementById('root')
 )

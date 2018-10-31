@@ -4,11 +4,8 @@ import BookShelf from '../BookShelf'
 import * as BooksAPI from '../../BooksAPI'
 
 class MainPage extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			books: []
-		}
+	state = {
+		books: []
 	}
 
 	componentDidMount() {
@@ -18,6 +15,7 @@ class MainPage extends Component {
 		})
 	}
 
+	// Change a book's shelf based on user selection
 	changeShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf).then(response => {
 			book.shelf = shelf;
@@ -61,10 +59,3 @@ class MainPage extends Component {
 }
 
 export default MainPage
-
-//for changeShelf function
-//update state of book - get copy of list of books
-//look for this book in list to see if it's there yet
-	//if book in list then update the shelf location
-	//otherwise push book to shelf
-//update state with new list of books

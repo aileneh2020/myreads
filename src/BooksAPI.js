@@ -1,8 +1,6 @@
-
 const api = "https://reactnd-books-api.udacity.com"
 
-
-// Generate a unique token for storing your bookshelf data on the backend server.
+// Generate a unique token for storing bookshelf data on backend server.
 let token = localStorage.token
 if (!token)
   token = localStorage.token = Math.random().toString(36).substr(-8)
@@ -12,19 +10,19 @@ const headers = {
   'Authorization': token
 }
 
-// return info about a single book
+// Return a single book
 export const get = (bookId) =>
   fetch(`${api}/books/${bookId}`, { headers })
     .then(res => res.json())
     .then(data => data.book)
 
-// return all books on all bookshelves
+// Return books on all bookshelves
 export const getAll = () =>
   fetch(`${api}/books`, { headers })
     .then(res => res.json())
     .then(data => data.books)
 
-// update a single book to new shelf, returns some info res.json
+// Move a single book to a new shelf
 export const update = (book, shelf) =>
   fetch(`${api}/books/${book.id}`, {
     method: 'PUT',
@@ -35,7 +33,7 @@ export const update = (book, shelf) =>
     body: JSON.stringify({ shelf })
   }).then(res => res.json())
 
-// search for book using query param, post, return books
+// Search for book based on query
 export const search = (query) =>
   fetch(`${api}/search`, {
     method: 'POST',
