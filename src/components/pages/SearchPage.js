@@ -27,17 +27,16 @@ class SearchPage extends Component {
 			return this.setState({ searchResults: [] })
 		}
 		BooksAPI.search(this.state.query.trim()).then(matches => {
-			if (matches === '' || matches === undefined) {
+			if (matches.error) {
 				return this.setState({ searchResults: [] })
 			} else {
-					// If book already on a shelf, update shelf status in search results
-					matches.forEach(b => {
-						const listBook = this.state.books.filter(myBook => myBook.id === b.id)
-						if (listBook.length) {
-							b.shelf = listBook[0].shelf
-						}
-					})
-
+				// If book already on a shelf, update shelf status in search results
+				matches.forEach(b => {
+					const listBook = this.state.books.filter(myBook => myBook.id === b.id)
+					if (listBook.length) {
+						b.shelf = listBook[0].shelf
+					}
+				})
 			return this.setState({ searchResults: matches })
 		}})
 	}
